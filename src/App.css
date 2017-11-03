@@ -36,3 +36,7 @@
   padding: auto;
   margin: auto;
 }
+
+.message-board {
+  list-style: none;
+}

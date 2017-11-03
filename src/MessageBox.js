@@ -17,8 +17,8 @@ class MessageBox extends Component {
     this.setState({text: ''})
   }
 
-  handleChange(event) {
-    this.setState({text: event.target.value})
+  handleChange(e) {
+    this.setState({text: e.target.value})
   }
 
   render() {
