@@ -13,13 +13,10 @@ class Button extends Component {
 
   render() {
     return (
-      <div>
       <i
         class={this.props.class}
         onClick={this.handleClick}
-      >
-      </i>
-    </div>
+      ></i>
     )
   }
 }

@@ -14,6 +14,7 @@ class MessageBox extends Component {
 
   handleClick() {
     this.props.onAddMessage(this.state.text)
+    this.setState({text: ''})
   }
 
   handleChange(event) {

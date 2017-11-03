@@ -26,3 +26,13 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.sort-button {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.test {
+  padding: auto;
+  margin: auto;
+}
