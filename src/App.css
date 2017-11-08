@@ -32,11 +32,40 @@
   margin-right: 5px;
 }
 
-.test {
-  padding: auto;
-  margin: auto;
-}
-
 .message-board {
   list-style: none;
+}
+
+.message-formatting {
+  border-bottom-color: gray;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.button-formatting {
+  padding-top: 0px;
+  padding-bottom: 20px;
+  color: #142967;
+}
+
+.message-text-lift {
+  margin-bottom: 5px;
+  margin-top: 15px;
+}
+
+.date-formatting {
+  font-size: 12px;
+  color: #142967;
+}
+
+.search-formatting {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.sort-button {
+  margin-right: 10px;
+  margin-bottom: 10px;
 }

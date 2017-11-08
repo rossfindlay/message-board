@@ -8,6 +8,7 @@ class Message extends Component {
   this.handleThumbsUpMessage = this.handleThumbsUpMessage.bind(this)
   this.handleThumbsDownMessage = this.handleThumbsDownMessage.bind(this)
   this.handleDeleteMessage = this.handleDeleteMessage.bind(this)
+  this.handleMessageClick = this.handleMessageClick.bind(this)
   }
 
   handleThumbsUpMessage() {
@@ -22,14 +23,21 @@ class Message extends Component {
     this.props.onMessageDeleteApp(this.props.id)
   }
 
+  handleMessageClick() {
+    this.props.onMessageClick(this.props.id, this.props.text)
+  }
+
+
 
 
   render() {
     return (
       <div>
-        <li>
+      <div class="message-text-lift" onClick={this.handleMessageClick}>
           <span class="center">{this.props.text}</span>
-          <span class="pull-right">{timeSince(this.props.date)}</span>
+      </div>
+      <span class="pull-right date-formatting">{timeSince(this.props.date)}</span>
+      <div class="message-formatting button-formatting">
           <Button
             class="fa fa-trash pull-left delete"
             onClickMessage={this.handleDeleteMessage}
@@ -43,8 +51,9 @@ class Message extends Component {
             onClickMessage={this.handleThumbsUpMessage}
           />
           <span class="pull-left">{this.props.votes}</span>
-        </li>
+
       </div>
+    </div>
     )
   }
 }
