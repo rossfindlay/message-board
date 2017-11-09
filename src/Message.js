@@ -27,9 +27,6 @@ class Message extends Component {
     this.props.onMessageClick(this.props.id, this.props.text)
   }
 
-
-
-
   render() {
     return (
       <div>
@@ -60,9 +57,9 @@ class Message extends Component {
 
 function timeSince(date) {
 
-  var seconds = Math.floor((new Date() - date) / 1000)
+  const seconds = Math.floor((new Date() - date) / 1000)
 
-  var interval = Math.floor(seconds / 31536000)
+  let interval = Math.floor(seconds / 31536000)
 
   if (interval > 1) {
     return `posted ${interval} years ago`

@@ -5,13 +5,7 @@ import './App.css';
 import Header from './Header'
 import Message from './Message'
 import MessageBox from './MessageBox'
-import SearchBoard from './SearchBoard'
-import Fuse from 'fuse.js'
-import ReactDOM from 'react-dom'
 import MessageEdit from './MessageEdit'
-
-
-
 
 class App extends Component {
   constructor(props) {
@@ -24,7 +18,8 @@ class App extends Component {
         { id: uuid.v4(), text: 'Test paragraph three', votes: 12 , date: 1499444444444}
       ],
       searchValue: '',
-      sortValue: '',
+      sortValue: 'date',
+      sortMethod: 'ascending',
       searchMessages: [],
       selectedMessage: '',
       selectedId: '',
@@ -36,10 +31,16 @@ class App extends Component {
     this.handleVoteDown = this.handleVoteDown.bind(this)
     this.handleMessageDelete = this.handleMessageDelete.bind(this)
     this.handleAddMessage = this.handleAddMessage.bind(this)
-    this.handleSortByVotes = this.handleSortByVotes.bind(this)
-    this.handleSortByDate = this.handleSortByDate.bind(this)
+
+    // this.handleSortByVotes = this.handleSortByVotes.bind(this)
+    // this.handleSortByDate = this.handleSortByDate.bind(this)
+
     this.handleSearchBar = this.handleSearchBar.bind(this)
-    this.handleSelectChange = this.handleSelectChange.bind(this)
+
+    this.handleSelectChangeValue = this.handleSelectChangeValue.bind(this)
+    this.handleSelectChangeMethod = this.handleSelectChangeMethod.bind(this)
+    this.handleMessageSort = this.handleMessageSort.bind(this)
+
     this.handleMessageClickApp = this.handleMessageClickApp.bind(this)
     this.handleConfirmChange = this.handleConfirmChange.bind(this)
     this.handleMessageEditCancel = this.handleMessageEditCancel.bind(this)
@@ -83,42 +84,36 @@ class App extends Component {
     })
   }
 
-  handleSortByVotes() {
-    const newMessageArray = this.state.messages.sort(function(a, b) {
-      return b.votes - a.votes
-    })
+  // handleSortByVotes() {
+  //   const newMessageArray = this.state.messages.sort(function(a, b) {
+  //     return b.votes - a.votes
+  //   })
+  //
+  //   this.setState({
+  //     messages: newMessageArray
+  //   })
+  // }
+  //
+  // handleSortByDate() {
+  //   const newMessageArray = this.state.messages.sort(function(a, b) {
+  //     return b.date - a.date
+  //   })
+  //
+  //   this.setState({
+  //     messages: newMessageArray
+  //   })
+  // }
 
+  handleSelectChangeValue(e) {
     this.setState({
-      messages: newMessageArray
-    })
-  }
-
-  handleSortByDate() {
-    const newMessageArray = this.state.messages.sort(function(a, b) {
-      return b.date - a.date
-    })
-
-    this.setState({
-      messages: newMessageArray
-    })
-  }
-
-  handleSelectChange(e) {
-
-    const test = e.target.value.toLowerCase()
-
-    console.log(test)
-
-    const newMessageArray = this.state.messages.sort(function(a, b) {
-      return b.votes - a.votes
-    })
-
-    this.setState({
-      messages: newMessageArray,
       sortValue: e.target.value.toLowerCase()
     })
+  }
 
-    //need to finish this
+  handleSelectChangeMethod(e) {
+    this.setState({
+      sortMethod: e.target.value.toLowerCase()
+    })
   }
 
   handleSearchBar(e) {
@@ -130,15 +125,6 @@ class App extends Component {
   }
 
   handleMessageClickApp(id, text) {
-
-    // ReactDOM.render(
-    //   <MessageEdit
-    //     selectedMessage={this.state.selectedMessage}
-    //     selectedId={this.state.selectedId}
-    //     onConfirmChange={this.handleConfirmChange}
-    //     onCancelClick={this.handleMessageEditCancel}
-    //   />, document.getElementById('me'))
-
       this.setState({
         selectedMessage: text,
         selectedId: id,
@@ -163,12 +149,29 @@ class App extends Component {
     })
   }
 
-  render() {
-    // console.log(this.state.messages.sort(function(a, b) {
-    //   return b.votes - a.votes
-    // }))
+  handleMessageSort() {
 
-    console.log(this.state.messages.includes(message => message.text === this.state.searchText))
+    if (this.state.sortValue === "votes" && this.state.sortMethod === "descending") {
+      console.log('votes desc')
+      return descVotesSort
+    } else if (this.state.sortValue === "votes" && this.state.sortMethod === "ascending") {
+      console.log('votes asc')
+      return ascVotesSort
+    } else if (this.state.sortValue === "date" && this.state.sortMethod === "descending") {
+      console.log('date desc')
+      return descDateSort
+    } else if (this.state.sortValue === "date" && this.state.sortMethod === "ascending") {
+      console.log('date asc')
+      return ascDateSort
+    } else {
+      console.log('error')
+    }
+
+    //must be a better/dryer way to do this.
+  }
+
+
+  render() {
     return (
       <div className="App">
         <Header title={"Ross' Message Board"} />
@@ -176,48 +179,37 @@ class App extends Component {
           <MessageBox
             onAddMessage={this.handleAddMessage}
           />
-          <div class="panel-group">
-            <div class="panel panel-default">
-              <div class="panel-heading center search-formatting">Search messages
-                <input
-                  id="search"
-                  type="text"
-                  class="center search-formatting"
-                  placeholder="Search..."
-                  value={this.state.searchValue}
-                  onChange={this.handleSearchBar}>
-                </input>
-              </div>
-            </div>
-          </div>
-          {/* {this.state.showSearchResults && <SearchBoard messages={this.state.messages}/>} */}
           {this.state.showMessageEdit && <MessageEdit
             selectedMessage={this.state.selectedMessage}
             selectedId={this.state.selectedId}
             onConfirmChange={this.handleConfirmChange}
             onCancelClick={this.handleMessageEditCancel}
           />}
-          <div id="sb"></div>
-          <div id="me"></div>
-          <div class="panel-group">Message Board
+          <div class="panel-group">
             <div class="panel panel-default">
-              <div class="panel-heading">Message Board
-                <select sortValue={this.state.value} onChange={this.handleSelectChange}>
+              <div class="panel-heading panel-heading-formatting">
+                <input
+                  id="search"
+                  type="text"
+                  class="pull-left search-formatting"
+                  placeholder="Search..."
+                  value={this.state.searchValue}
+                  onChange={this.handleSearchBar}>
+                </input>
+                <select sortMethod={this.state.value} onChange={this.handleSelectChangeMethod} class="pull-right">
+                  <option value="ascending">Ascending</option>
+                  <option value="descending">Descending</option>
+                </select>
+                <select sortValue={this.state.value} onChange={this.handleSelectChangeValue} class="pull-right">
                   <option value="date">Date</option>
                   <option value="votes">Votes</option>
                 </select>
-                <select sortValueTwo={this.state.value} onChange={this.handleSelectChange}>
-                  <option value="date">Date</option>
-                  <option value="votes">Votes</option>
-                </select>
-                <button class="pull-right sort-button" onClick={this.handleSortByVotes}>Sort by Votes</button>
-                <button class="pull-right sort-button" onClick={this.handleSortByDate}>Sort by Date</button>
+                <div class="pull-right">Sort by: </div>
               </div>
               <div class="panel-body">
                 <ul class="message-board">
-                  {this.state.messages
-                    .filter(message => message.text.includes(this.state.searchText))
-                    //(this.state.sortValue === "votes" ? .sort((a, b) => b.votes - a.votes) : undefined)
+                  {this.state.messages.sort(this.handleMessageSort())
+                    .filter(message => message.text.toLowerCase().includes(this.state.searchText.toLowerCase()))
                     .map(message => {
                       return (
                         <Message
@@ -230,8 +222,8 @@ class App extends Component {
                           onMessageClick={this.handleMessageClickApp}
                           id={message.id}
                         />
-                      )}
-                    )
+                      )
+                    })
                   }
                 </ul>
               </div>
@@ -242,5 +234,10 @@ class App extends Component {
     );
   }
 }
+
+const descVotesSort = (a, b) => b.votes - a.votes
+const ascVotesSort = (a, b) => a.votes - b.votes
+const ascDateSort = (a, b) => b.date - a.date
+const descDateSort = (a, b) => a.date - b.date
 
 export default App;

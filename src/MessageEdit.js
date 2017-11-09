@@ -14,9 +14,7 @@ class MessageEdit extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.componentDidMount = this.componentDidMount.bind(this)
   }
-  //to-do
-  // change load message to load on mount
-  // add mount/unmount on click message and on click confirm
+
   componentDidMount() {
     this.setState({
       newText: this.props.selectedMessage,
@@ -52,13 +50,13 @@ class MessageEdit extends Component {
         </div>
         <button
           id="submit"
-          class="btn btn-default"
+          class="btn btn-default message-edit-btn-format"
           onClick={this.handleClick}>
           Confirm changes
         </button>
         <button
           id="submit"
-          class="btn btn-default"
+          class="btn btn-default message-edit-btn-format"
           onClick={this.handleCancel}>
           Cancel changes
         </button>

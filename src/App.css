@@ -61,11 +61,24 @@
 }
 
 .search-formatting {
-  margin-left: 10px;
+  margin-left: 40px;
   margin-right: 10px;
 }
 
 .sort-button {
   margin-right: 10px;
   margin-bottom: 10px;
+}
+
+.panel-heading-formatting {
+  height: 45px;
+}
+
+.message-edit-btn-format {
+  margin-left: 10px;
+  margin-bottom: 15px;
+}
+
+.heading-format {
+  text-align: center;
 }
