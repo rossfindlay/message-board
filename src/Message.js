@@ -30,11 +30,11 @@ class Message extends Component {
   render() {
     return (
       <div>
-      <div class="message-text-lift" onClick={this.handleMessageClick}>
-          <span class="center">{this.props.text}</span>
-      </div>
-      <span class="pull-right date-formatting">{timeSince(this.props.date)}</span>
-      <div class="message-formatting button-formatting">
+        <div class="message-text-lift" onClick={this.handleMessageClick}>
+            <span class="center">{this.props.text}</span>
+        </div>
+        <span class="pull-right date-formatting">{timeSince(this.props.date)}</span>
+        <div class="message-formatting button-formatting">
           <Button
             class="fa fa-trash pull-left delete"
             onClickMessage={this.handleDeleteMessage}
@@ -48,9 +48,8 @@ class Message extends Component {
             onClickMessage={this.handleThumbsUpMessage}
           />
           <span class="pull-left">{this.props.votes}</span>
-
+        </div>
       </div>
-    </div>
     )
   }
 }

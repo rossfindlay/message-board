@@ -15,12 +15,11 @@ class App extends Component {
       messages: [
         { id: uuid.v4(), text: 'There’s a passage I got memorized. Ezekiel 25:17. “The path of the righteous man is beset on all sides by the inequities of the selfish and the tyranny of evil men. Blessed is he who, in the name of charity and good will, shepherds the weak through the valley of the darkness, for he is truly his brother’s keeper and the finder of lost children. And I will strike down upon thee with great vengeance and furious anger those who attempt to poison and destroy My brothers. And you will know I am the Lord when I lay My vengeance upon you.”', votes: 10 , date: 1222222222222},
         { id: uuid.v4(), text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla congue malesuada neque, in tristique nisi iaculis ac. Vivamus porttitor finibus arcu. Duis auctor interdum lectus, ut finibus dui finibus et. Curabitur semper nibh sit amet diam faucibus, vitae aliquam tellus dapibus. Maecenas consectetur magna velit, nec rutrum purus blandit vel. ', votes: 2 , date: 1508333333333},
-        { id: uuid.v4(), text: 'Test paragraph three', votes: 12 , date: 1499444444444}
+        { id: uuid.v4(), text: 'I don\'t ever wanna feel like I did that day But take me to the place I love, take me all the way I don\'t ever wanna feel like I did that day But take me to the place I love, take me all the way, yeah, yeah, yeah', votes: 12 , date: 1499444444444}
       ],
       searchValue: '',
       sortValue: 'date',
       sortMethod: 'ascending',
-      searchMessages: [],
       selectedMessage: '',
       selectedId: '',
       showMessageEdit: false,
@@ -31,9 +30,6 @@ class App extends Component {
     this.handleVoteDown = this.handleVoteDown.bind(this)
     this.handleMessageDelete = this.handleMessageDelete.bind(this)
     this.handleAddMessage = this.handleAddMessage.bind(this)
-
-    // this.handleSortByVotes = this.handleSortByVotes.bind(this)
-    // this.handleSortByDate = this.handleSortByDate.bind(this)
 
     this.handleSearchBar = this.handleSearchBar.bind(this)
 
@@ -84,26 +80,6 @@ class App extends Component {
     })
   }
 
-  // handleSortByVotes() {
-  //   const newMessageArray = this.state.messages.sort(function(a, b) {
-  //     return b.votes - a.votes
-  //   })
-  //
-  //   this.setState({
-  //     messages: newMessageArray
-  //   })
-  // }
-  //
-  // handleSortByDate() {
-  //   const newMessageArray = this.state.messages.sort(function(a, b) {
-  //     return b.date - a.date
-  //   })
-  //
-  //   this.setState({
-  //     messages: newMessageArray
-  //   })
-  // }
-
   handleSelectChangeValue(e) {
     this.setState({
       sortValue: e.target.value.toLowerCase()
@@ -150,26 +126,16 @@ class App extends Component {
   }
 
   handleMessageSort() {
-
     if (this.state.sortValue === "votes" && this.state.sortMethod === "descending") {
-      console.log('votes desc')
       return descVotesSort
     } else if (this.state.sortValue === "votes" && this.state.sortMethod === "ascending") {
-      console.log('votes asc')
       return ascVotesSort
     } else if (this.state.sortValue === "date" && this.state.sortMethod === "descending") {
-      console.log('date desc')
       return descDateSort
     } else if (this.state.sortValue === "date" && this.state.sortMethod === "ascending") {
-      console.log('date asc')
       return ascDateSort
-    } else {
-      console.log('error')
     }
-
-    //must be a better/dryer way to do this.
   }
-
 
   render() {
     return (
